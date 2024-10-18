@@ -29,12 +29,55 @@ fn my_tests() {
     test_default_game_state();
 
 //     //#[test]
-//     fn test_set_game_state() {
-//         let mut state = GameState::default();
-//         state.set(0, 2, Some(3));
-//         assert_eq!(state.get(0, 2), Some(3));
-//         // TODO: add more tests
-//     }
+    fn test_set_game_state() {
+        let mut state = GameState::default();
+        state.set(0, 2, Some(3));
+        assert_eq!(state.get(0, 2), Some(3));
+        // TODO: add more tests
+        state.set(0, 1 , Some(6)); //[0][1] = 5 --> 6
+        assert_eq!(state.get(0, 1), Some(6));
+
+        state.set(0, 3 , Some(14)); //[0][3] = 13 --> 14
+        assert_eq!(state.get(0, 3), Some(14));
+
+        state.set(1, 0, Some(3)); //[1][0] = 2 --> 3
+        assert_eq!(state.get(1, 0), Some(3));
+
+        state.set(1, 1, Some(7)); //[1][1] = 6 --> 7
+        assert_eq!(state.get(1, 1), Some(7));
+
+        state.set(1, 2 , Some(11)); //[1][2] = 10 --> 11
+        assert_eq!(state.get(1, 2), Some(11));
+
+        state.set(1, 3 , Some(15)); //[1][3] = 14 --> 15
+        assert_eq!(state.get(1, 3), Some(15));
+
+        state.set(2, 0 , Some(4)); //[2][0] = 3 --> 4
+        assert_eq!(state.get(2, 0), Some(4));
+
+        state.set(2, 1 , Some(8)); //[2][1] = 7 --> 8
+        assert_eq!(state.get(2, 1), Some(8));
+
+        state.set(2, 2 , Some(12)); //[2][2] = 11 --> 12
+        assert_eq!(state.get(2, 2), Some(12));
+
+        state.set(2, 3 , Some(None)); //[2][3] = 15 --> None
+        assert_eq!(state.get(2, 3), Some(None));
+
+        state.set(3, 0 , Some(5)); //[3][0] = 4 --> 5
+        assert_eq!(state.get(3, 0), Some(5));
+        
+        state.set(3, 1 , Some(9)); //[3][1] = 8 --> 9
+        assert_eq!(state.get(3, 1), Some(9));
+        
+        state.set(3, 2 , Some(13)); //[3][2] = 12 --> 13
+        assert_eq!(state.get(3, 2), Some(13));
+
+        state.set(3, 3 , Some(15)); //[3][3] = None --> 15
+        assert_eq!(state.get(3, 3), Some(15));
+    }
+
+    test_set_game_state();
 
 //     const DEFAULT_STATE_STR: &'static str = "\
 // |  1 |  2 |  3 |  4 |
