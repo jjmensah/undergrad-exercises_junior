@@ -32,14 +32,14 @@ impl Default for GameState {
         let row_index = [0,1,2,3];
         let column_index = [0,1,2,3];
         
-        for i in row_index{
-            for j in column_index{
+        for j in column_index{
+            for i in row_index{
                 let tile_value = 4 * (i) + j + 1;
                 
                 if tile_value == 16 {
-                    tile[i][j] = None;
+                    tile[j][i] = None;
                 } else {
-                    tile[i][j] = Some(tile_value as u8);
+                    tile[j][i] = Some(tile_value as u8);
                 }
             }
         }
@@ -78,7 +78,7 @@ impl GameState {
         let row_index = [0,1,2,3];
         let column_index = [0,1,2,3];
 
-        if (row_index.iter().any(|&i| i == x)) && (column_index.iter().any(|&j| j == y)){
+        if (column_index.iter().any(|&i| i == x)) && (row_index.iter().any(|&j| j == y)){
             self.tile_array[x as usize][y as usize]
         } else {
             None
