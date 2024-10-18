@@ -5,14 +5,14 @@ pub struct GameState {
     // TODO
     // Initialize an array of arrays (to represent a 4 * 4 matrix)
     // Option: to cater for the changing empty tile which is filled
-    tile: [[Option<u8> ; 4]; 4],
+    tile_array: [[Option<u8> ; 4]; 4],
 }
 
 /// Creates the default position of tiles, starting with 1 in the top left corner.
 impl Default for GameState {
     fn default() -> Self {
         //todo!()
-        let mut tile = [[0 ; 4]; 4]; // Initially set all tiles as 0
+        let mut tile = [[None ; 4]; 4]; // Initially set all tiles as None (empty)
         
         // Matrix definition
         //                 Columns
@@ -33,92 +33,102 @@ impl Default for GameState {
         let column_index = [0,1,2,3];
         
         for i in row_index{
-            for j in row_index{
+            for j in column_index{
                 let tile_value = 4 * (i) + j + 1;
                 
-                if (tile_value == 16){
+                if tile_value == 16 {
                     tile[i][j] = None;
                 } else {
-                    tile[i][j] = Some(tile_value);
+                    tile[i][j] = Some(tile_value as u8);
                 }
             }
         }
-        GameState(tile)
+        GameState{
+            tile_array: tile
+        }
     }
 }
 
-/// Generates a human-readable representation of the game state.
-impl std::fmt::Display for GameState {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        todo!()
-    }
-}
+// /// Generates a human-readable representation of the game state.
+// impl std::fmt::Display for GameState {
+//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+//         todo!()
+//     }
+// }
 
-/// Checks whether two game states are the same,.
-impl PartialEq for GameState {
-    fn eq(&self, other: &Self) -> bool {
-        todo!()
-    }
-}
+// /// Checks whether two game states are the same,.
+// impl PartialEq for GameState {
+//     fn eq(&self, other: &Self) -> bool {
+//         todo!()
+//     }
+// }
 
-/// Feel free to ignore this. (but do not remove)
-impl Eq for GameState {}
+// /// Feel free to ignore this. (but do not remove)
+// impl Eq for GameState {}
 
 impl GameState {
-    /// Updates a position with a new tile.
-    pub fn set(&mut self, x: u8, y: u8, tile: Option<u8>) {
-        todo!()
-    }
+    // /// Updates a position with a new tile.
+    // pub fn set(&mut self, x: u8, y: u8, tile: Option<u8>) {
+    //     todo!()
+    // }
 
     /// Returns the tile at position x,y.
     pub fn get(&self, x: u8, y: u8) -> Option<u8> {
-        todo!()
+        //todo!()
+        let row_index = [0,1,2,3];
+        let column_index = [0,1,2,3];
+
+        if (row_index.iter().any(|&i| i == x)) && (column_index.iter().any(|&j| j == y)){
+            self.tile_array[x as usize][y as usize]
+        } else {
+            None
+        }
     }
 
-    /// Returns false if there is a duplicate tile in this game state.
-    pub fn all_tiles_unique(&self) -> bool {
-        todo!()
-    }
+    // /// Returns false if there is a duplicate tile in this game state.
+    // pub fn all_tiles_unique(&self) -> bool {
+    //     todo!()
+    // }
 
-    /// Swaps the tile from (x1,y1) with the tile from (x2,y2)
-    pub fn swap(&mut self, x1: u8, y1: u8, x2: u8, y2: u8) {
-        todo!()
-    }
+    // /// Swaps the tile from (x1,y1) with the tile from (x2,y2)
+    // pub fn swap(&mut self, x1: u8, y1: u8, x2: u8, y2: u8) {
+    //     todo!()
+    // }
 
-    /// Updates the state to reflect the move that was performed. Returns false if the move was
-    /// not possible.
-    pub fn perform_move(&mut self, m: Move) -> bool {
-        todo!()
-    }
+    // /// Updates the state to reflect the move that was performed. Returns false if the move was
+    // /// not possible.
+    // pub fn perform_move(&mut self, m: Move) -> bool {
+    //     todo!()
+    // }
 
-    /// Performs a series of moves. Returns the number of moves that were successful.
-    pub fn perform_moves(&mut self, moves: &[Move]) -> usize {
-        todo!()
-    }
+    // /// Performs a series of moves. Returns the number of moves that were successful.
+    // pub fn perform_moves(&mut self, moves: &[Move]) -> usize {
+    //     todo!()
+    // }
 
-    /// Tries to parse a game state from the provided string.
-    /// Returns None if parsing is not possible, or if the parsed game state would contain
-    /// duplicate or invalid tiles.
-    /// Ignores whitespace.
-    pub fn from_str(s: &str) -> Option<Self> {
-        todo!()
-    }
+    // /// Tries to parse a game state from the provided string.
+    // /// Returns None if parsing is not possible, or if the parsed game state would contain
+    // /// duplicate or invalid tiles.
+    // /// Ignores whitespace.
+    // pub fn from_str(s: &str) -> Option<Self> {
+    //     todo!()
+    // }
 }
 
-/// Finds the minimal number of moves needed to get from one state to the other.
-/// Might run forever if there is no path, so use with caution!
-pub fn find_shortest_path(from: GameState, to: GameState) -> Vec<Move> {
-    todo!()
-}
+// /// Finds the minimal number of moves needed to get from one state to the other.
+// /// Might run forever if there is no path, so use with caution!
+// pub fn find_shortest_path(from: GameState, to: GameState) -> Vec<Move> {
+//     todo!()
+// }
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Ord, PartialOrd)]
-#[repr(u8)]
-pub enum Move {
-    LeftToRight,
-    RightToLeft,
-    TopToBottom,
-    BottomToTop,
-}
+// #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Ord, PartialOrd)]
+// #[repr(u8)]
+// pub enum Move {
+//     LeftToRight,
+//     RightToLeft,
+//     TopToBottom,
+//     BottomToTop,
+// }
 
 
 #[cfg(test)]
