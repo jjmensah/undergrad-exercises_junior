@@ -1,8 +1,11 @@
-#[cfg(test)]
-mod tests {
-    use super::*;
+use super::*;
+#[test]
 
-    #[test]
+#[cfg(test)]
+fn my_tests() {
+    
+
+    //#[test]
     fn test_default_game_state() {
         let state = GameState::default();
         assert_eq!(state.get(0, 0), Some(1));

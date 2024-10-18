@@ -1,5 +1,3 @@
-pub mod tests;
-
 /// Holds information about which tile is in which position.
 /// Should be fairly compact and easy to copy.
 #[derive(Debug, Clone)]
@@ -121,3 +119,7 @@ pub enum Move {
     TopToBottom,
     BottomToTop,
 }
+
+
+#[cfg(test)]
+mod tests;
