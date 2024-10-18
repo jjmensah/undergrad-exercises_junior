@@ -61,8 +61,8 @@ fn my_tests() {
         state.set(2, 2 , Some(12)); //[2][2] = 11 --> 12
         assert_eq!(state.get(2, 2), Some(12));
 
-        state.set(2, 3 , Some(None)); //[2][3] = 15 --> None
-        assert_eq!(state.get(2, 3), Some(None));
+        state.set(2, 3 , None); //[2][3] = 15 --> None
+        assert_eq!(state.get(2, 3), None);
 
         state.set(3, 0 , Some(5)); //[3][0] = 4 --> 5
         assert_eq!(state.get(3, 0), Some(5));
