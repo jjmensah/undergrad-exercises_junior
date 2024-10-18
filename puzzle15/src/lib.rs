@@ -68,9 +68,10 @@ impl Default for GameState {
 
 impl GameState {
     // /// Updates a position with a new tile.
-    // pub fn set(&mut self, x: u8, y: u8, tile: Option<u8>) {
-    //     todo!()
-    // }
+    pub fn set(&mut self, x: u8, y: u8, tile: Option<u8>) {
+        //todo!()
+        self.tile_array[x as usize][y as usize] = tile;
+    }
 
     /// Returns the tile at position x,y.
     pub fn get(&self, x: u8, y: u8) -> Option<u8> {
