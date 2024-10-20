@@ -209,8 +209,40 @@ fn my_tests() {
         state.swap(0, 0, 2, 2);
         assert!(state.all_tiles_unique());
         assert_eq!(state.get(0, 0), Some(11));
+        assert_eq!(state.get(2, 2), Some(1));
 
         // TODO: add more tests
+
+        state.swap(0, 1, 1, 1);
+        assert!(state.all_tiles_unique());
+        assert_eq!(state.get(0, 1), Some(6));
+        assert_eq!(state.get(1, 1), Some(5));
+
+        state.swap(0, 2, 1, 2);
+        assert!(state.all_tiles_unique());
+        assert_eq!(state.get(0, 2), Some(10));
+        assert_eq!(state.get(1, 2), Some(9));
+
+        state.swap(0, 3, 1, 3);
+        assert!(state.all_tiles_unique());
+        assert_eq!(state.get(0, 3), Some(14));
+        assert_eq!(state.get(1, 3), Some(13));
+
+        state.swap(2, 1, 3, 1);
+        assert!(state.all_tiles_unique());
+        assert_eq!(state.get(2, 1), Some(8));
+        assert_eq!(state.get(3, 1), Some(7));
+
+        state.swap(3, 2, 3, 0);
+        assert!(state.all_tiles_unique());
+        assert_eq!(state.get(3, 2), Some(4));
+        assert_eq!(state.get(3, 0), Some(12));
+
+        state.swap(1, 0, 2, 0);
+        assert!(state.all_tiles_unique());
+        assert_eq!(state.get(1, 0), Some(3));
+        assert_eq!(state.get(2, 0), Some(2));
+
     }
 
     test_swap();
