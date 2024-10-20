@@ -157,6 +157,40 @@ fn my_tests() {
         assert!(state.all_tiles_unique());
 
         // TODO: add more tests
+        state.set(1, 0, Some(3));
+        assert!(!state.all_tiles_unique());
+        state.set(2, 0, Some(2));
+        assert!(state.all_tiles_unique());
+
+        state.set(0, 1, Some(8));
+        assert!(!state.all_tiles_unique());
+        state.set(3, 1, Some(5));
+        assert!(state.all_tiles_unique());
+        
+        state.set(1, 1, Some(7));
+        assert!(!state.all_tiles_unique());
+        state.set(2, 1, Some(6));
+        assert!(state.all_tiles_unique());
+
+        state.set(0, 2, Some(12));
+        assert!(!state.all_tiles_unique());
+        state.set(3, 2, Some(9));
+        assert!(state.all_tiles_unique());
+
+        state.set(1, 2, Some(11));
+        assert!(!state.all_tiles_unique());
+        state.set(2, 1, Some(10));
+        assert!(state.all_tiles_unique());
+
+        state.set(0, 3, None);
+        assert!(!state.all_tiles_unique());
+        state.set(3, 3, Some(13));
+        assert!(state.all_tiles_unique());
+
+        state.set(1, 3, Some(15));
+        assert!(!state.all_tiles_unique());
+        state.set(2, 3, Some(14));
+        assert!(state.all_tiles_unique());
     }
 
     test_validate_game_state();
