@@ -73,12 +73,13 @@ impl std::fmt::Display for GameState {
     }
 }
 
-// /// Checks whether two game states are the same,.
-// impl PartialEq for GameState {
-//     fn eq(&self, other: &Self) -> bool {
-//         todo!()
-//     }
-// }
+/// Checks whether two game states are the same,.
+impl PartialEq for GameState {
+    fn eq(&self, other: &Self) -> bool {
+        // todo!()
+        self.tile_array == other.tile_array
+    }
+}
 
 /// Feel free to ignore this. (but do not remove)
 // impl Eq for GameState {}
