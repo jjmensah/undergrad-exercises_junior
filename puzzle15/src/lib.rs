@@ -34,7 +34,7 @@ impl Default for GameState {
         
         for i in column_index{
             for j in row_index{
-                let tile_value = 4 * (i) + j + 1;
+                let tile_value = 4 * (j) + i + 1;
                 
                 if tile_value == 16 {
                     tile[i][j] = None;
@@ -57,18 +57,17 @@ impl std::fmt::Display for GameState {
         let row_index = [0,1,2,3];
         let column_index = [0,1,2,3];
 
-        for i in column_index{
-            for j in row_index{
-                let tile = self.get(i,j);
+        for i in row_index{
+            for j in column_index{
+                let tile = self.get(j,i);
 
                 match tile{
                     Some(tile) => write!(f, "| {:>2} ", tile)?, //Right align
-                    None => write!(f, "|   ")?,
+                    None => write!(f, "|    ")?,
                 }
             }
+            writeln!(f, "|")?;
         }
-        write!(f, "|")?;
-
         Ok(())
         
     }
@@ -82,7 +81,7 @@ impl std::fmt::Display for GameState {
 // }
 
 /// Feel free to ignore this. (but do not remove)
-impl Eq for GameState {}
+// impl Eq for GameState {}
 
 impl GameState {
     // /// Updates a position with a new tile.
