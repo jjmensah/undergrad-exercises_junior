@@ -32,14 +32,14 @@ impl Default for GameState {
         let row_index = [0,1,2,3];
         let column_index = [0,1,2,3];
         
-        for j in column_index{
-            for i in row_index{
+        for i in column_index{
+            for j in row_index{
                 let tile_value = 4 * (i) + j + 1;
                 
                 if tile_value == 16 {
-                    tile[j][i] = None;
+                    tile[i][j] = None;
                 } else {
-                    tile[j][i] = Some(tile_value as u8);
+                    tile[i][j] = Some(tile_value as u8);
                 }
             }
         }
@@ -49,12 +49,23 @@ impl Default for GameState {
     }
 }
 
-// /// Generates a human-readable representation of the game state.
-// impl std::fmt::Display for GameState {
-//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-//         todo!()
-//     }
-// }
+/// Generates a human-readable representation of the game state.
+impl std::fmt::Display for GameState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        //todo!()
+
+        let row_index = [0,1,2,3];
+        let column_index = [0,1,2,3];
+
+        for i in column_index{
+            for j in row_index{
+                let tile = self.get(i,j);
+                
+            }
+        }
+        
+    }
+}
 
 // /// Checks whether two game states are the same,.
 // impl PartialEq for GameState {
@@ -63,8 +74,8 @@ impl Default for GameState {
 //     }
 // }
 
-// /// Feel free to ignore this. (but do not remove)
-// impl Eq for GameState {}
+/// Feel free to ignore this. (but do not remove)
+impl Eq for GameState {}
 
 impl GameState {
     // /// Updates a position with a new tile.

@@ -79,20 +79,22 @@ fn my_tests() {
 
     test_set_game_state();
 
-//     const DEFAULT_STATE_STR: &'static str = "\
-// |  1 |  2 |  3 |  4 |
-// |  5 |  6 |  7 |  8 |
-// |  9 | 10 | 11 | 12 |
-// | 13 | 14 | 15 |    |
-// ";
+    const DEFAULT_STATE_STR: &'static str = "\
+|  1 |  2 |  3 |  4 |
+|  5 |  6 |  7 |  8 |
+|  9 | 10 | 11 | 12 |
+| 13 | 14 | 15 |    |
+";
 
 //     //#[test]
-//     fn test_display_game_state() {
-//         let state = GameState::default();
-//         assert_eq!(DEFAULT_STATE_STR, format!("{state}"));
+    fn test_display_game_state() {
+        let state = GameState::default();
+        assert_eq!(DEFAULT_STATE_STR, format!("{state}"));
 
-//         // TODO: add more tests
-//     }
+        // TODO: add more tests
+    }
+
+    test_display_game_state();
 
 //     //#[test]
 //     fn test_validate_game_state() {
