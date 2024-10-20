@@ -179,7 +179,7 @@ fn my_tests() {
 
         state.set(1, 2, Some(11));
         assert!(!state.all_tiles_unique());
-        state.set(2, 1, Some(10));
+        state.set(2, 2, Some(10));
         assert!(state.all_tiles_unique());
 
         state.set(0, 3, None);
