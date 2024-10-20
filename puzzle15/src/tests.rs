@@ -94,13 +94,19 @@ fn my_tests() {
 ";
 
 //Case where None has been moved towards the extreme end of the matrix
-const TILE_1_MOVED_STATE_STR: &'static str = "\
+        const TILE_1_MOVED_STATE_STR: &'static str = "\
 |    |  2 |  3 |  4 |
 |  5 |  6 |  7 |  8 |
 |  9 | 10 | 11 | 12 |
 | 13 | 14 | 15 |  1 |
 ";
 
+    const SCATTERED_TILES_STATE_STR: &'static str = "\
+|  3 |    |  8 | 14 |
+| 13 |  1 |  4 |  2 |
+|  5 | 12 |  6 | 15 |
+| 11 | 10 |  9 |  7 |
+";
 
 //     //#[test]
     fn test_display_game_state() {
@@ -117,6 +123,25 @@ const TILE_1_MOVED_STATE_STR: &'static str = "\
         tile_1_moved_state.set(0, 0, None);
         tile_1_moved_state.set(3, 3, Some(1));
         assert_eq!(TILE_1_MOVED_STATE_STR, format!("{tile_1_moved_state}"));
+
+        let mut scattered_tiles_state = GameState::default();
+        scattered_tiles_state.set(0, 0, Some(3));
+        scattered_tiles_state.set(1, 0, None);
+        scattered_tiles_state.set(2, 0, Some(8));
+        scattered_tiles_state.set(3, 0, Some(14));
+        scattered_tiles_state.set(0, 1, Some(13));
+        scattered_tiles_state.set(1, 1, Some(1));
+        scattered_tiles_state.set(2, 1, Some(4));
+        scattered_tiles_state.set(3, 1, Some(2));
+        scattered_tiles_state.set(0, 2, Some(5));
+        scattered_tiles_state.set(1, 2, Some(12));
+        scattered_tiles_state.set(2, 2, Some(6));
+        scattered_tiles_state.set(3, 2, Some(15));
+        scattered_tiles_state.set(0, 3, Some(11));
+        scattered_tiles_state.set(1, 3, Some(10));
+        scattered_tiles_state.set(2, 3, Some(9));
+        scattered_tiles_state.set(3, 3, Some(7));
+        assert_eq!(SCATTERED_TILES_STATE_STR, format!("{scattered_tiles_state}"));
 
     }
 
