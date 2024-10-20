@@ -60,10 +60,16 @@ impl std::fmt::Display for GameState {
         for i in column_index{
             for j in row_index{
                 let tile = self.get(i,j);
-                
+
+                match tile{
+                    Some(tile) => print!("| {tile} "),
+                    None => print!("|   "),
+                }
             }
         }
+        print!("|");
         
+        Ok(())
     }
 }
 
