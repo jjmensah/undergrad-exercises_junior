@@ -196,22 +196,24 @@ fn my_tests() {
     test_validate_game_state();
 
 //     //#[test]
-//     fn test_swap() {
-//         let mut state = GameState::default();
-//         assert_eq!(state.get(2, 3), Some(15));
-//         assert_eq!(state.get(3, 3), None);
-//         state.swap(2, 3, 3, 3);
-//         assert!(state.all_tiles_unique());
-//         assert_eq!(state.get(2, 3), None);
-//         assert_eq!(state.get(3, 3), Some(15));
+    fn test_swap() {
+        let mut state = GameState::default();
+        assert_eq!(state.get(2, 3), Some(15));
+        assert_eq!(state.get(3, 3), None);
+        state.swap(2, 3, 3, 3);
+        assert!(state.all_tiles_unique());
+        assert_eq!(state.get(2, 3), None);
+        assert_eq!(state.get(3, 3), Some(15));
 
-//         //
-//         state.swap(0, 0, 2, 2);
-//         assert!(state.all_tiles_unique());
-//         assert_eq!(state.get(0, 0), Some(11));
+        //
+        state.swap(0, 0, 2, 2);
+        assert!(state.all_tiles_unique());
+        assert_eq!(state.get(0, 0), Some(11));
 
-//         // TODO: add more tests
-//     }
+        // TODO: add more tests
+    }
+
+    test_swap();
 
 //     //#[test]
 //     fn test_perform_move() {

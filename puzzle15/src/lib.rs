@@ -125,10 +125,16 @@ impl GameState {
         emp.len() == set.len()
     }
 
-    // /// Swaps the tile from (x1,y1) with the tile from (x2,y2)
-    // pub fn swap(&mut self, x1: u8, y1: u8, x2: u8, y2: u8) {
-    //     todo!()
-    // }
+    /// Swaps the tile from (x1,y1) with the tile from (x2,y2)
+    pub fn swap(&mut self, x1: u8, y1: u8, x2: u8, y2: u8) {
+        //todo!()
+        
+        let first_value = self.get(x1, y1);
+        let second_value = self.get(x2, y2);
+        self.set(x1, y1, second_value);
+        self.set(x2, y2, first_value);
+
+    }
 
     // /// Updates the state to reflect the move that was performed. Returns false if the move was
     // /// not possible.
