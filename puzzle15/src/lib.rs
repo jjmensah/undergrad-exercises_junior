@@ -62,14 +62,15 @@ impl std::fmt::Display for GameState {
                 let tile = self.get(i,j);
 
                 match tile{
-                    Some(tile) => print!("| {tile} "),
-                    None => print!("|   "),
+                    Some(tile) => write!(f, "| {:>2} ", tile)?, //Right align
+                    None => write!(f, "|   ")?,
                 }
             }
         }
-        print!("|");
-        
+        write!(f, "|")?;
+
         Ok(())
+        
     }
 }
 
