@@ -148,16 +148,18 @@ fn my_tests() {
     test_display_game_state();
 
 //     //#[test]
-//     fn test_validate_game_state() {
-//         let mut state = GameState::default();
-//         assert!(state.all_tiles_unique());
-//         state.set(3, 0, Some(1));
-//         assert!(!state.all_tiles_unique());
-//         state.set(0, 0, Some(4));
-//         assert!(state.all_tiles_unique());
+    fn test_validate_game_state() {
+        let mut state = GameState::default();
+        assert!(state.all_tiles_unique());
+        state.set(3, 0, Some(1));
+        assert!(!state.all_tiles_unique());
+        state.set(0, 0, Some(4));
+        assert!(state.all_tiles_unique());
 
-//         // TODO: add more tests
-//     }
+        // TODO: add more tests
+    }
+
+    test_validate_game_state();
 
 //     //#[test]
 //     fn test_swap() {

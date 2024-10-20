@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 /// Holds information about which tile is in which position.
 /// Should be fairly compact and easy to copy.
 #[derive(Debug, Clone)]
@@ -82,7 +84,7 @@ impl PartialEq for GameState {
 }
 
 /// Feel free to ignore this. (but do not remove)
-// impl Eq for GameState {}
+impl Eq for GameState {}
 
 impl GameState {
     // /// Updates a position with a new tile.
@@ -104,10 +106,24 @@ impl GameState {
         }
     }
 
-    // /// Returns false if there is a duplicate tile in this game state.
-    // pub fn all_tiles_unique(&self) -> bool {
-    //     todo!()
-    // }
+    /// Returns false if there is a duplicate tile in this game state.
+    pub fn all_tiles_unique(&self) -> bool {
+        //todo!()
+        let row_index = [0,1,2,3];
+        let column_index = [0,1,2,3];
+
+        let mut emp = Vec::new();
+
+        for i in row_index{
+            for j in column_index{
+                emp.push(self.get(i,j))
+            }
+        }
+
+        let set: HashSet<_> = emp.iter().collect();
+        
+        emp.len() == set.len()
+    }
 
     // /// Swaps the tile from (x1,y1) with the tile from (x2,y2)
     // pub fn swap(&mut self, x1: u8, y1: u8, x2: u8, y2: u8) {
