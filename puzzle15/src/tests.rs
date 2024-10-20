@@ -86,12 +86,21 @@ fn my_tests() {
 | 13 | 14 | 15 |    |
 ";
 
-const TILE_15_MOVED_STATE_STR: &'static str = "\
+    const TILE_15_MOVED_STATE_STR: &'static str = "\
 |  1 |  2 |  3 |  4 |
 |  5 |  6 |  7 |  8 |
 |  9 | 10 | 11 | 12 |
 | 13 | 14 |    | 15 |
 ";
+
+//Case where None has been moved towards the extreme end of the matrix
+const TILE_1_MOVED_STATE_STR: &'static str = "\
+|    |  2 |  3 |  4 |
+|  5 |  6 |  7 |  8 |
+|  9 | 10 | 11 | 12 |
+| 13 | 14 | 15 |  1 |
+";
+
 
 //     //#[test]
     fn test_display_game_state() {
@@ -103,6 +112,12 @@ const TILE_15_MOVED_STATE_STR: &'static str = "\
         tile_15_moved_state.set(3, 3, Some(15));
         tile_15_moved_state.set(2, 3, None);
         assert_eq!(TILE_15_MOVED_STATE_STR, format!("{tile_15_moved_state}"));
+
+        let mut tile_1_moved_state = GameState::default();
+        tile_1_moved_state.set(0, 0, None);
+        tile_1_moved_state.set(3, 3, Some(1));
+        assert_eq!(TILE_1_MOVED_STATE_STR, format!("{tile_1_moved_state}"));
+
     }
 
     test_display_game_state();
