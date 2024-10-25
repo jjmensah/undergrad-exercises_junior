@@ -126,7 +126,46 @@ impl GameState {
     pub fn perform_move(&mut self, m: Move) -> bool {
         //todo!()
 
-        true
+        // Track the position of the empty tile [None]
+
+        let none_tile_col_index = 3;
+        let none_tile_row_index = 3;
+
+        match m{
+            Move::LeftToRight => {
+                if none_tile_col_index > 0 {
+                    self.swap(none_tile_col_index, none_tile_row_index, none_tile_col_index - 1, none_tile_row_index);
+                    true
+                } else {
+                    false
+                }
+            }
+            
+            Move::RightToLeft => {
+                if none_tile_row_index < 3 {
+                    self.swap(none_tile_col_index, none_tile_row_index, none_tile_col_index + 1, none_tile_row_index);
+                    true
+                } else {
+                    false
+                }
+            }
+            Move::TopToBottom => {
+                if none_tile_row_index > 0 {
+                    self.swap(none_tile_col_index, none_tile_row_index, none_tile_col_index, none_tile_row_index - 1);
+                    true
+                } else {
+                    false
+                }
+            }
+            Move::BottomToTop => {
+                if none_tile_row_index < 3 {
+                    self.swap(none_tile_col_index, none_tile_row_index, none_tile_col_index, none_tile_row_index + 1);
+                    true
+                } else {
+                    false
+                }
+            }
+        }
         
     }
 
