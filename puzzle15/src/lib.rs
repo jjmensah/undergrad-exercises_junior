@@ -30,12 +30,9 @@ impl Default for GameState {
         // x(3) + y(2) + z = 15, 3x + 2y + z = 15   --> eqn 3
         // Solve simultaneously, x = 4, y = 1 and z = 1
         // Formula for each cell = 4 * (row_index) + (column_index) + 1
-
-        let row_index = [0,1,2,3];
-        let column_index = [0,1,2,3];
         
-        for i in column_index{
-            for j in row_index{
+        for i in 0..4{
+            for j in 0..4{
                 let tile_value = 4 * (j) + i + 1;
                 
                 if tile_value == 16 {
@@ -56,11 +53,8 @@ impl std::fmt::Display for GameState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         //todo!()
 
-        let row_index = [0,1,2,3];
-        let column_index = [0,1,2,3];
-
-        for i in row_index{
-            for j in column_index{
+        for i in 0..4{
+            for j in 0..4{
                 let tile = self.get(j,i);
 
                 match tile{
@@ -96,33 +90,26 @@ impl GameState {
     /// Returns the tile at position x,y.
     pub fn get(&self, x: u8, y: u8) -> Option<u8> {
         //todo!()
-        let row_index = [0,1,2,3];
-        let column_index = [0,1,2,3];
+        
+        self.tile_array[x as usize][y as usize]
 
-        if (column_index.iter().any(|&i| i == x)) && (row_index.iter().any(|&j| j == y)){
-            self.tile_array[x as usize][y as usize]
-        } else {
-            None
-        }
     }
 
     /// Returns false if there is a duplicate tile in this game state.
     pub fn all_tiles_unique(&self) -> bool {
         //todo!()
-        let row_index = [0,1,2,3];
-        let column_index = [0,1,2,3];
 
         let mut emp = Vec::new();
 
-        for i in row_index{
-            for j in column_index{
+        for i in 0..4{
+            for j in 0..4{
                 emp.push(self.get(i,j))
             }
         }
 
         let set: HashSet<_> = emp.iter().collect();
         
-        emp.len() == set.len()
+        set.len() == 16
     }
 
     /// Swaps the tile from (x1,y1) with the tile from (x2,y2)
