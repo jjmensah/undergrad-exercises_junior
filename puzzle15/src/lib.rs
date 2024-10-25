@@ -121,12 +121,12 @@ impl GameState {
 
     }
 
-    // /// Updates the state to reflect the move that was performed. Returns false if the move was
-    // /// not possible.
-    // pub fn perform_move(&mut self, m: Move) -> bool {
-    //     //todo!()
+    /// Updates the state to reflect the move that was performed. Returns false if the move was
+    /// not possible.
+    pub fn perform_move(&mut self, m: Move) -> bool {
+        //todo!()
         
-    // }
+    }
 
     // /// Performs a series of moves. Returns the number of moves that were successful.
     // pub fn perform_moves(&mut self, moves: &[Move]) -> usize {
