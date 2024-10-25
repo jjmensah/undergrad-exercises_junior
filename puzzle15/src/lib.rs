@@ -125,6 +125,8 @@ impl GameState {
     /// not possible.
     pub fn perform_move(&mut self, m: Move) -> bool {
         //todo!()
+
+        true
         
     }
 
@@ -151,10 +153,11 @@ impl GameState {
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Ord, PartialOrd)]
 #[repr(u8)]
 pub enum Move {
-    LeftToRight,
-    RightToLeft,
-    TopToBottom,
-    BottomToTop,
+                // Inference from test cases
+    LeftToRight,// Swap empty tile with tile to its left
+    RightToLeft,// Swap empty tile with tile to its right
+    TopToBottom,// Swap empty tile with tile above it
+    BottomToTop,// Swap empty tile with tile below it
 }
 
 
