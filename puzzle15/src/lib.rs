@@ -183,10 +183,11 @@ impl GameState {
         
     }
 
-    // /// Performs a series of moves. Returns the number of moves that were successful.
-    // pub fn perform_moves(&mut self, moves: &[Move]) -> usize {
-    //     todo!()
-    // }
+    /// Performs a series of moves. Returns the number of moves that were successful.
+    pub fn perform_moves(&mut self, moves: &[Move]) -> usize {
+        //todo!()
+        
+    }
 
     // /// Tries to parse a game state from the provided string.
     // /// Returns None if parsing is not possible, or if the parsed game state would contain

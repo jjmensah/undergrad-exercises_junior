@@ -308,28 +308,61 @@ fn my_tests() {
     test_game_state_equality();
 
 //     //#[test]
-//     fn test_perform_moves() {
-//         let mut state = GameState::default();
-//         assert_eq!(
-//             state.perform_moves(&[Move::RightToLeft, Move::BottomToTop, Move::TopToBottom]),
-//             1
-//         );
+    fn test_perform_moves() {
+        let mut state = GameState::default();
+        assert_eq!(
+            state.perform_moves(&[Move::RightToLeft, Move::BottomToTop, Move::TopToBottom]),
+            1
+        );
 
-//         let mut state = GameState::default();
-//         assert_eq!(
-//             state.perform_moves(&[Move::TopToBottom, Move::TopToBottom, Move::TopToBottom]),
-//             3
-//         );
-//         let expected = "\
-// |  1 |  2 |  3 |    |
-// |  5 |  6 |  7 |  4 |
-// |  9 | 10 | 11 |  8 |
-// | 13 | 14 | 15 | 12 |
-// ";
-//         assert_eq!(expected, format!("{state}"));
+        let mut state = GameState::default();
+        assert_eq!(
+            state.perform_moves(&[Move::TopToBottom, Move::TopToBottom, Move::TopToBottom]),
+            3
+        );
+        let expected = "\
+|  1 |  2 |  3 |    |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+";
+        assert_eq!(expected, format!("{state}"));
 
-//         // TODO: add more tests
-//     }
+        // TODO: add more tests
+
+        let mut state_2 = GameState::default();
+
+        assert_eq!(state_2.perform_moves(&[Move::TopToBottom, Move::RightToLeft,
+            Move::LeftToRight, Move::BottomToTop, Move::BottomToTop]) , 3);
+        
+        let expected_2 = "\
+|  1 |  2 |  3 |  4 |
+|  5 |  6 |  7 |  8 |
+|  9 | 10 | 15 | 11 |
+| 13 | 14 |    | 12 |
+";
+
+        assert_eq!(expected_2, format!("{state_2}"));
+
+
+        let mut state_3 = GameState::default();
+
+        assert_eq!(state_3.perform_moves(&[Move::BottomToTop, Move::RightToLeft,
+            Move::LeftToRight, Move::TopToBottom, Move::RightToLeft,
+            Move::RightToLeft, Move::TopToBottom]) , 4);
+        
+        let expected_3 = "\
+|  1 |  2 |  3 |  4 |
+|  5 |  6 |  7 |    |
+|  9 | 10 | 12 |  8 |
+| 13 | 14 | 11 | 15 |
+";
+
+        assert_eq!(expected_3, format!("{state_3}"));
+
+    }
+
+    test_perform_moves();
 
 //     //#[test]
 //     fn test_parse_state() {
