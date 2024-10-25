@@ -99,15 +99,13 @@ impl GameState {
     pub fn all_tiles_unique(&self) -> bool {
         //todo!()
 
-        let mut emp = Vec::new();
+        let mut set= HashSet::new();
 
         for i in 0..4{
             for j in 0..4{
-                emp.push(self.get(i,j))
+                set.insert(self.get(i,j));
             }
         }
-
-        let set: HashSet<_> = emp.iter().collect();
         
         set.len() == 16
     }
@@ -123,12 +121,12 @@ impl GameState {
 
     }
 
-    /// Updates the state to reflect the move that was performed. Returns false if the move was
-    /// not possible.
-    pub fn perform_move(&mut self, m: Move) -> bool {
-        //todo!()
+    // /// Updates the state to reflect the move that was performed. Returns false if the move was
+    // /// not possible.
+    // pub fn perform_move(&mut self, m: Move) -> bool {
+    //     //todo!()
         
-    }
+    // }
 
     // /// Performs a series of moves. Returns the number of moves that were successful.
     // pub fn perform_moves(&mut self, moves: &[Move]) -> usize {

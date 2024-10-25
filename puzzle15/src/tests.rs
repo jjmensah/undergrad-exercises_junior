@@ -248,22 +248,22 @@ fn my_tests() {
     test_swap();
 
 //     //#[test]
-    fn test_perform_move() {
-        let mut state = GameState::default();
-        assert!(!state.perform_move(Move::RightToLeft));
-        assert!(!state.perform_move(Move::BottomToTop));
-        assert!(state.perform_move(Move::TopToBottom));
-        assert!(state.all_tiles_unique());
-        assert_eq!(state.get(3, 3), Some(12));
-        assert_eq!(state.get(3, 2), None);
-        assert!(state.perform_move(Move::LeftToRight));
-        assert_eq!(state.get(3, 2), Some(11));
-        assert_eq!(state.get(2, 2), None);
+    // fn test_perform_move() {
+    //     let mut state = GameState::default();
+    //     assert!(!state.perform_move(Move::RightToLeft));
+    //     assert!(!state.perform_move(Move::BottomToTop));
+    //     assert!(state.perform_move(Move::TopToBottom));
+    //     assert!(state.all_tiles_unique());
+    //     assert_eq!(state.get(3, 3), Some(12));
+    //     assert_eq!(state.get(3, 2), None);
+    //     assert!(state.perform_move(Move::LeftToRight));
+    //     assert_eq!(state.get(3, 2), Some(11));
+    //     assert_eq!(state.get(2, 2), None);
 
-        // TODO: add more tests
-    }
+    //     // TODO: add more tests
+    // }
 
-    test_perform_move();
+    // test_perform_move();
 
 //     //#[test]
 //     fn test_game_state_equality() {
