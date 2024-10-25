@@ -121,6 +121,20 @@ impl GameState {
 
     }
 
+    /// Locates the position of the empty tile [None] in GameStruct
+    /// Returns a tuple of its coordinates
+    pub fn empty_tile(&self) -> Option<(usize, usize)> {
+
+        for i in 0..4 {
+            for j in 0..4 {
+                if self.get(i as u8, j as u8) == None {
+                    return Some((i, j));
+                }
+            }
+        }
+        None
+    }
+
     /// Updates the state to reflect the move that was performed. Returns false if the move was
     /// not possible.
     pub fn perform_move(&mut self, m: Move) -> bool {
