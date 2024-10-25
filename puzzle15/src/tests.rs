@@ -276,18 +276,36 @@ fn my_tests() {
     test_perform_move();
 
 //     //#[test]
-//     fn test_game_state_equality() {
-//         let mut state = GameState::default();
-//         assert!(!state.perform_move(Move::BottomToTop));
-//         assert_eq!(state, GameState::default());
-//         assert!(state.perform_move(Move::TopToBottom));
-//         let mut state_2 = GameState::default();
-//         state_2.set(3, 3, Some(12));
-//         state_2.set(3, 2, None);
-//         assert_eq!(state, state_2);
+    fn test_game_state_equality() {
+        let mut state = GameState::default();
+        assert!(!state.perform_move(Move::BottomToTop));
+        assert_eq!(state, GameState::default());
+        assert!(state.perform_move(Move::TopToBottom));
+        let mut state_2 = GameState::default();
+        state_2.set(3, 3, Some(12));
+        state_2.set(3, 2, None);
+        assert_eq!(state, state_2);
 
-//         // TODO: add more tests
-//     }
+        // TODO: add more tests
+
+        assert!(state.perform_move(Move::BottomToTop));
+        state_2.set(3, 3, None);
+        state_2.set(3, 2, Some(12));
+        assert_eq!(state, state_2);
+
+        assert!(state.perform_move(Move::LeftToRight));
+        state_2.set(2, 3, None);
+        state_2.set(3, 3, Some(15));
+        assert_eq!(state, state_2);
+
+        assert!(state.perform_move(Move::RightToLeft));
+        state_2.set(2, 3, Some(15));
+        state_2.set(3, 3, None);
+        assert_eq!(state, state_2);
+
+    }
+
+    test_game_state_equality();
 
 //     //#[test]
 //     fn test_perform_moves() {
