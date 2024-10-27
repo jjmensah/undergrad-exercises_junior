@@ -203,7 +203,30 @@ impl GameState {
     /// Ignores whitespace.
     pub fn from_str(s: &str) -> Option<Self> {
         // todo!()
-        
+
+        let mut state = GameState::default();
+        let mut all_tiles_stringed = s.split_whitespace();
+
+        for i in 0..4 {
+            for j in 0..4 {
+                if let Some(individual_tile) = all_tiles_stringed.next() {
+                    if individual_tile == "" {
+                        state.tile_array[i][j] = None
+                    } else if let Ok(n) = individual_tile.parse(){
+                        state.tile_array[i][j] = Some(n)
+                    } else {
+                        return None
+                    }
+                }
+            }
+        }
+
+
+        if state.all_tiles_unique(){
+            Some(state)
+        } else {
+            None
+        }
     }
 }
 
