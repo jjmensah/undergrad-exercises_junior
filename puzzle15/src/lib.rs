@@ -197,13 +197,14 @@ impl GameState {
         number_of_successful_moves
     }
 
-    // /// Tries to parse a game state from the provided string.
-    // /// Returns None if parsing is not possible, or if the parsed game state would contain
-    // /// duplicate or invalid tiles.
-    // /// Ignores whitespace.
-    // pub fn from_str(s: &str) -> Option<Self> {
-    //     todo!()
-    // }
+    /// Tries to parse a game state from the provided string.
+    /// Returns None if parsing is not possible, or if the parsed game state would contain
+    /// duplicate or invalid tiles.
+    /// Ignores whitespace.
+    pub fn from_str(s: &str) -> Option<Self> {
+        // todo!()
+        
+    }
 }
 
 // /// Finds the minimal number of moves needed to get from one state to the other.

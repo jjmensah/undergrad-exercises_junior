@@ -365,59 +365,111 @@ fn my_tests() {
     test_perform_moves();
 
 //     //#[test]
-//     fn test_parse_state() {
-//         assert_eq!(
-//             GameState::from_str(DEFAULT_STATE_STR).unwrap(),
-//             GameState::default()
-//         );
+    fn test_parse_state() {
+        assert_eq!(
+            GameState::from_str(DEFAULT_STATE_STR).unwrap(),
+            GameState::default()
+        );
 
-//         let wrong0 = "\
-// |  1 | 22 |  3 |    |
-// |  5 |  6 |  7 |  4 |
-// |  9 | 10 | 11 |  8 |
-// | 13 | 14 | 15 | 12 |
-// ";
-//         let wrong1 = "\
-// |  1 |  2 ,  3 |    |
-// |  5 |  6 |  7 |  4 |
-// |  9 | 10 | 11 |  8 |
-// | 13 | 14 | 15 | 12 |
-// ";
-//         let wrong2 = "\
-// |  1 |  2 |  3 |
-// |  5 |  6 |  7 |  4 |
-// |  9 | 10 | 11 |  8 |
-// | 13 | 14 | 15 | 12 |
-// ";
-//         let wrong3 = "\
-// |  1 |  2 |  3 |    |
-// |  5 |  6 |  7 |  4 |
-// |  9 | 10 | 11 |  8 |
-// | 13 | 14 | 15 | 12 |
-// | 13 | 14 | 15 | 12 |
-// ";
-//         let wrong4 = "\
-// |  1 |  2 |  3 |    | 1 |
-// |  5 |  6 |  7 |  4 | 1 |
-// |  9 | 10 | 11 |  8 | 1 |
-// | 13 | 14 | 15 | 12 | 1 |
-// ";
-//         let wrong5 = "\
-// |  1 |  2 |  3 |    |
-// |  5 |  2 |  7 |  4 |
-// |  9 | 10 | 11 |  8 |
-// | 13 | 14 | 15 | 12 |
-// ";
-//         assert!(GameState::from_str(wrong0).is_none());
-//         assert!(GameState::from_str(wrong1).is_none());
-//         assert!(GameState::from_str(wrong2).is_none());
-//         assert!(GameState::from_str(wrong3).is_none());
-//         assert!(GameState::from_str(wrong4).is_none());
-//         assert!(GameState::from_str(wrong5).is_none());
+        let wrong0 = "\
+|  1 | 22 |  3 |    |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+";
+        let wrong1 = "\
+|  1 |  2 ,  3 |    |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+";
+        let wrong2 = "\
+|  1 |  2 |  3 |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+";
+        let wrong3 = "\
+|  1 |  2 |  3 |    |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+| 13 | 14 | 15 | 12 |
+";
+        let wrong4 = "\
+|  1 |  2 |  3 |    | 1 |
+|  5 |  6 |  7 |  4 | 1 |
+|  9 | 10 | 11 |  8 | 1 |
+| 13 | 14 | 15 | 12 | 1 |
+";
+        let wrong5 = "\
+|  1 |  2 |  3 |    |
+|  5 |  2 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+";
 
-//         // TODO: add more tests
-//     }
+        assert!(GameState::from_str(wrong0).is_none());
+        assert!(GameState::from_str(wrong1).is_none());
+        assert!(GameState::from_str(wrong2).is_none());
+        assert!(GameState::from_str(wrong3).is_none());
+        assert!(GameState::from_str(wrong4).is_none());
+        assert!(GameState::from_str(wrong5).is_none());
 
+        // TODO: add more tests
+        let incorrect_6 = "\
+|  1 |  2 |  3 | 16 |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+";//Parsing not possible
+
+        let incorrect_7 = "\
+|  1 |  2 |  3 |    |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 |  4 | 15 | 12 |
+";//GameState contains duplicate tiles
+
+        let incorrect_8 = "\
+|  1 |  2 |  3 |    |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |    |
+| 13 | 14 | 15 | 12 |
+";//GameState contains two None (empty) tiles making it invalid
+
+        let incorrect_9 = "\
+|| 2 |  3 |    |  1 |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+";//Parsing not possible
+
+        let incorrect_10 = "\
+|  1 |  2 |  3 |    |
+|  5 |  6 |  7 |  4 |
+|  9 | 18 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+";//GameState contains an invalid tile (Tile 18)
+
+        let incorrect_11 = "\
+|  1 |  2 |  3 |    |
+|  5 |  6 |  7 |  4 |
+|  9 | 10 | 11 |  8 |
+| 13 | 14 | 15 | 12 |
+| 13 | 14 | 15 | 12 |
+";//Parsing not possible
+
+        assert!(GameState::from_str(incorrect_6).is_none());
+        assert!(GameState::from_str(incorrect_7).is_none());
+        assert!(GameState::from_str(incorrect_8).is_none());
+        assert!(GameState::from_str(incorrect_9).is_none());
+        assert!(GameState::from_str(incorrect_10).is_none());
+        assert!(GameState::from_str(incorrect_11).is_none());
+
+    }
+
+    test_parse_state();
 //     //#[test]
 //     fn test_find_shortest_path() {
 //         let expected_moves = [Move::TopToBottom, Move::TopToBottom, Move::TopToBottom];
