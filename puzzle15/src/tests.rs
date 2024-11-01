@@ -352,7 +352,7 @@ fn my_tests() {
             Move::RightToLeft, Move::TopToBottom]) , 4);
         
         let expected_3 = "\
-|  1 |  2 |  3 |  4 |
+ |  1 |  2 |  3 |  4 |
 |  5 |  6 |  7 |    |
 |  9 | 10 | 12 |  8 |
 | 13 | 14 | 11 | 15 |
@@ -470,6 +470,7 @@ fn my_tests() {
     }
 
     test_parse_state();
+    
 //     //#[test]
 //     fn test_find_shortest_path() {
 //         let expected_moves = [Move::TopToBottom, Move::TopToBottom, Move::TopToBottom];

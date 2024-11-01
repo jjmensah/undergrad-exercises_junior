@@ -205,17 +205,20 @@ impl GameState {
         // todo!()
 
         let mut state = GameState::default();
-        let mut all_tiles_stringed = s.split_whitespace();
+        let mut rows = s.lines();
 
         for i in 0..4 {
-            for j in 0..4 {
-                if let Some(individual_tile) = all_tiles_stringed.next() {
-                    if individual_tile == "" {
-                        state.tile_array[i][j] = None
-                    } else if let Ok(n) = individual_tile.parse(){
-                        state.tile_array[i][j] = Some(n)
-                    } else {
-                        return None
+            if let Some(row) = rows.next(){
+                let mut all_tiles_stringed = row.split('|');
+                for j in 0..4 {
+                    if let Some(individual_tile) = all_tiles_stringed.next() {
+                        if individual_tile.trim() == "" {
+                            state.tile_array[i][j] = None
+                        } else if let Ok(n) = individual_tile.trim().parse::<u8>(){
+                            state.tile_array[i][j] = Some(n)
+                        } else {
+                            return None
+                        }
                     }
                 }
             }
