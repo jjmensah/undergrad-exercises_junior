@@ -218,12 +218,13 @@ impl GameState {
                 if all_tiles_stringed.clone().count() != 6 {
                     return None;
                 }
-
+                
                 for j in 0..6 {
                     if let Some(individual_tile) = all_tiles_stringed.next() {
                         if individual_tile == "" {
                             continue;
-                        } C
+                        } else if individual_tile == "    "{
+                            state.tile_array[j-1][i] = None
                         } else if let Ok(n) = individual_tile.trim().parse::<u8>(){
                             if n > 15 {
                                 return None;
@@ -246,11 +247,12 @@ impl GameState {
     }
 }
 
-// /// Finds the minimal number of moves needed to get from one state to the other.
-// /// Might run forever if there is no path, so use with caution!
-// pub fn find_shortest_path(from: GameState, to: GameState) -> Vec<Move> {
-//     todo!()
-// }
+/// Finds the minimal number of moves needed to get from one state to the other.
+/// Might run forever if there is no path, so use with caution!
+pub fn find_shortest_path(from: GameState, to: GameState) -> Vec<Move> {
+    // todo!()
+    
+}
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Ord, PartialOrd)]
 #[repr(u8)]

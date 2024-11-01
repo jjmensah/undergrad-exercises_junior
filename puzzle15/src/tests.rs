@@ -3,6 +3,8 @@ use super::*;
 
 #[cfg(test)]
 fn my_tests() {
+    use std::intrinsics::mir::Static;
+
     
 
     //#[test]
@@ -471,16 +473,35 @@ fn my_tests() {
 
     test_parse_state();
     
-//     //#[test]
-//     fn test_find_shortest_path() {
-//         let expected_moves = [Move::TopToBottom, Move::TopToBottom, Move::TopToBottom];
-//         let mut state = GameState::default();
-//         assert_eq!(state.perform_moves(&expected_moves), 3);
+    //#[test]
+    fn test_find_shortest_path() {
+        let expected_moves = [Move::TopToBottom, Move::TopToBottom, Move::TopToBottom];
+        let mut state = GameState::default();
+        assert_eq!(state.perform_moves(&expected_moves), 3);
 
-//         let actual_moves = find_shortest_path(GameState::default(), state);
-//         assert_eq!(actual_moves.len(), 3);
-//         assert_eq!(actual_moves, expected_moves);
+        let actual_moves = find_shortest_path(GameState::default(), state);
+        assert_eq!(actual_moves.len(), 3);
+        assert_eq!(actual_moves, expected_moves);
 
-//         // TODO: add more tests
-//     }
+        // TODO: add more tests
+        // Test 1
+        let expected_moves_1 = [Move::TopToBottom, Move::TopToBottom, Move::LeftToRight];
+        let mut state_1 = GameState::default();
+        assert_eq!(state_1.perform_moves(&expected_moves_1), 3);
+
+        let actual_moves_1 = find_shortest_path(GameState::default(), state_1);
+        assert_eq!(actual_moves_1.len(), 3);
+        assert_eq!(actual_moves_1, expected_moves_1);
+
+        // Test 2
+        let expected_moves_2 = [Move::TopToBottom, Move::LeftToRight, Move::TopToBottom, Move::LeftToRight, Move::TopToBottom, Move::LeftToRight];
+        let mut state_2 = GameState::default();
+        assert_eq!(state_2.perform_moves(&expected_moves_2), 6);
+
+        let actual_moves_2 = find_shortest_path(GameState::default(), state_2);
+        assert_eq!(actual_moves_2.len(), 6);
+        assert_eq!(actual_moves_2, expected_moves_2);
+    }
+
+    test_find_shortest_path();
 }
