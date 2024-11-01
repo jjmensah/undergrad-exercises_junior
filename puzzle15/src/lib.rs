@@ -207,15 +207,28 @@ impl GameState {
         let mut state = GameState::default();
         let mut rows = s.lines();
 
+        if rows.clone().count() != 4 {
+            return None;
+        }
+
         for i in 0..4 {
             if let Some(row) = rows.next(){
                 let mut all_tiles_stringed = row.split('|');
-                for j in 0..4 {
+
+                if all_tiles_stringed.clone().count() != 6 {
+                    return None;
+                }
+
+                for j in 0..6 {
                     if let Some(individual_tile) = all_tiles_stringed.next() {
-                        if individual_tile.trim() == "" {
-                            state.tile_array[i][j] = None
+                        if individual_tile == "" {
+                            continue;
+                        } C
                         } else if let Ok(n) = individual_tile.trim().parse::<u8>(){
-                            state.tile_array[i][j] = Some(n)
+                            if n > 15 {
+                                return None;
+                            }
+                            state.tile_array[j-1][i] = Some(n)
                         } else {
                             return None
                         }

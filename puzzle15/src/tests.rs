@@ -352,7 +352,7 @@ fn my_tests() {
             Move::RightToLeft, Move::TopToBottom]) , 4);
         
         let expected_3 = "\
- |  1 |  2 |  3 |  4 |
+|  1 |  2 |  3 |  4 |
 |  5 |  6 |  7 |    |
 |  9 | 10 | 12 |  8 |
 | 13 | 14 | 11 | 15 |
