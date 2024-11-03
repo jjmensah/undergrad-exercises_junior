@@ -3,9 +3,6 @@ use super::*;
 
 #[cfg(test)]
 fn my_tests() {
-    use std::intrinsics::mir::Static;
-
-    
 
     //#[test]
     fn test_default_game_state() {

@@ -2,7 +2,7 @@ use std::collections::HashSet;
 
 /// Holds information about which tile is in which position.
 /// Should be fairly compact and easy to copy.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Hash)]
 pub struct GameState {
     // TODO
     // Initialize an array of arrays (to represent a 4 * 4 matrix)
@@ -251,7 +251,33 @@ impl GameState {
 /// Might run forever if there is no path, so use with caution!
 pub fn find_shortest_path(from: GameState, to: GameState) -> Vec<Move> {
     // todo!()
-    
+
+    let mut queue = vec![(from.clone(), vec![])];
+    let mut state_tracker = HashSet::new();
+    state_tracker.insert(from);
+
+    while let Some((new_state, moves)) = queue.pop(){
+        if new_state == to {
+            return moves;
+        }
+
+        for &possible_move in &[Move::TopToBottom, Move::BottomToTop, Move::LeftToRight, Move::RightToLeft] {
+            let mut next = new_state.clone();
+            if next.perform_move(possible_move) {
+                if !state_tracker.contains(&next) {
+                    state_tracker.insert(next.clone());
+
+                    let mut path = moves.clone();
+                    path.push(possible_move);
+
+                    queue.insert(0, (next, path));
+                }
+            }
+        }
+    }
+
+    Vec::new()  
+
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Ord, PartialOrd)]
