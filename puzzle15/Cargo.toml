@@ -4,3 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+baa = "0.14.1"
+easy-smt = "0.2.3"
+patronus = "0.22.0"
