@@ -1,3 +1,5 @@
+mod circuits;
+
 use std::collections::HashSet;
 
 /// Holds information about which tile is in which position.
