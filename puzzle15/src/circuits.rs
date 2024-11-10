@@ -36,7 +36,7 @@ fn build_counter_0(ctx: &mut Context, width: WidthInt) -> TransitionSystem {
 ///          Once the counter reaches that max value, it should stop incrementing.
 ///          You can assume that the max value will fit into the use specified bit width.
 ///          Hint: the ctx.bv_ite primitive will choose between two values based on a condition,
-///                similar to the terniary expression in e.g. C: `cond? a : b`
+///                similar to the ternary expression in e.g. C: `cond? a : b`
 ///                or multiplexers in hardware: https://en.wikipedia.org/wiki/Multiplexer
 ///          Hint: to create a constant other than 0 or 1, use:
 ///                `ctx.bv_lit(&BitVecValue::from_u64(value, width))`
@@ -47,7 +47,7 @@ fn build_counter_1(ctx: &mut Context, width: WidthInt, max_value: u64) -> Transi
     // define how the count gets updated:
     // count' := count + 1
     // `ctx.build` is used here, because we are building a nested expression
-    let count_next = todo!("you only need to add code here!");
+    let count_next = ctx.build(|c| c.add(count, c.one(width)));
 
     // define the initial value of our count
     let count_init = ctx.zero(width);
