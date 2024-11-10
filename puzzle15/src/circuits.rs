@@ -78,7 +78,7 @@ fn build_counter_2(ctx: &mut Context, width: WidthInt, max_value: u64) -> Transi
     // define how the count gets updated:
     // count' := count + 1
     // `ctx.build` is used here, because we are building a nested expression
-    let count_next = todo!("you only need to add code here!");
+    let count_next = ctx.build(|c| c.bv_ite(c.bv_equal(en, c.one(1)), c.bv_ite(c.greater_or_equal(count, c.bv_lit(&BitVecValue::from_u64(max_value, width))),c.bv_lit(&BitVecValue::from_u64(max_value, width)),c.add(count, c.one(width))), count));
 
     // define the initial value of our count
     let count_init = ctx.zero(width);
