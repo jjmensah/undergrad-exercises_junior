@@ -78,7 +78,7 @@ fn build_counter_2(ctx: &mut Context, width: WidthInt, max_value: u64) -> Transi
     // define how the count gets updated:
     // count' := count + 1
     // `ctx.build` is used here, because we are building a nested expression
-    let count_next = ctx.build(|c| c.bv_ite(c.bv_equal(en, c.one(1)), c.bv_ite(c.greater_or_equal(count, c.bv_lit(&BitVecValue::from_u64(max_value, width))),c.bv_lit(&BitVecValue::from_u64(max_value, width)),c.add(count, c.one(width))), count));
+    let count_next = ctx.build(|c| c.bv_ite(en, c.bv_ite(c.greater_or_equal(count, c.bv_lit(&BitVecValue::from_u64(max_value, width))),c.bv_lit(&BitVecValue::from_u64(max_value, width)),c.add(count, c.one(width))), count));
 
     // define the initial value of our count
     let count_init = ctx.zero(width);
@@ -148,11 +148,9 @@ fn build_puzzle_15(ctx: &mut Context) -> (TransitionSystem, Vec<ExprRef>, ExprRe
 
             // TODO: current we just assign the old tile value, how do we correctly compute the next tile value?
 
-            let position_next = position;
-            positions_next.push(position_next);
-        }
-    }
+            // let position_next = position;
 
+            
     // create states
     for (pos, (next, init)) in positions
         .iter()
@@ -279,6 +277,41 @@ state count : bv<2>
         // we print out the puzzle to help you debug
         println!("{}", sys.serialize_to_str(&ctx));
 
-        todo!("write a test that checks the positions after a move")
+        // todo!("write a test that checks the positions after a move")
+
+        let mut sim = Interpreter::new(&ctx, &sys);
+
+        let mut state = GameState::default();
+
+
+        for (x, y) in positions.iter().enumerate(){
+            if let Some(value) = sim.get(*y) {
+                state.set(x as u8 % 4, x as u8 / 4, value);
+            }
+        }
+
+
+        // let mut state = GameState::default();
+        // state.perform_move(Move::TopToBottom);
+
+        // // let mut new_state = GameState::default();
+        // // new_state.set(3,3, Some(12));
+        // // new_state.set(3,2, None);
+
+        // for x in 0..4 {
+        //     for y in 0..4 {
+        //         let pos_index = pos_to_index(y, x);
+
+        //         let getter = state.get(x,y);
+        //         let casted_getter = match getter {
+        //             Some(num) => num as u64,
+        //             None => 0,
+        //         };
+
+        //         let exp = ctx.bv_lit(&BitVecValue::from_u64(casted_getter, 4));
+
+        //     }
+        // }
+
     }
 }
