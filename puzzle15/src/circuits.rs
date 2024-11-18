@@ -145,12 +145,67 @@ fn build_puzzle_15(ctx: &mut Context) -> (TransitionSystem, Vec<ExprRef>, ExprRe
     for x in 0..4 {
         for y in 0..4 {
             let position = positions[pos_to_index(x, y)];
-
+            
             // TODO: current we just assign the old tile value, how do we correctly compute the next tile value?
 
-            // let position_next = position;
+            let mut position_next = position;
 
-            
+            position_next = ctx.build(|c| {
+                let valid = c.and(move_left_to_right, c.greater(c.bit_vec_val(x, 4), c.zero(4)));
+                // let empty_tile = is_empty[pos_to_index(x - 1, y)];
+
+                let empty_tile = if x > 0 {
+                    is_empty[pos_to_index(x - 1, y)]
+                } else {
+                    c.zero(4)
+                };
+
+                c.bv_ite(c.and(valid, empty_tile), positions[pos_to_index(x - 1, y)], position_next)
+            });
+
+            position_next = ctx.build(|c| {
+                let valid = c.and(move_right_to_left, c.negate(c.greater_or_equal(c.bit_vec_val(x, 4), c.bit_vec_val(3, 4))));
+                // let empty_tile = is_empty[pos_to_index(x + 1, y)];
+
+                let empty_tile = if x < 3 {
+                    is_empty[pos_to_index(x + 1, y)]
+                } else {
+                    c.zero(4)
+                };
+
+                c.bv_ite(c.and(valid, empty_tile), positions[pos_to_index(x + 1, y)], position_next)
+            });
+
+            position_next = ctx.build(|c| {
+                let valid = c.and(move_top_to_bottom, c.greater(c.bit_vec_val(y, 4), c.zero(4)));
+                // let empty_tile = is_empty[pos_to_index(x, y - 1)];
+
+                let empty_tile = if y > 0 {
+                    is_empty[pos_to_index(x, y - 1)]
+                } else {
+                    c.zero(4)
+                };
+
+                c.bv_ite(c.and(valid, empty_tile), positions[pos_to_index(x, y - 1)], position_next)
+            });
+
+            position_next = ctx.build(|c| {
+                let valid = c.and(move_bottom_to_top, c.negate(c.greater_or_equal(c.bit_vec_val(y, 4), c.bit_vec_val(3, 4))));
+                // let empty_tile = is_empty[pos_to_index(x, y + 1)];
+
+                let empty_tile = if y < 3 {
+                    is_empty[pos_to_index(x, y + 1)]
+                } else {
+                    c.zero(4)
+                };
+
+                c.bv_ite(c.and(valid, empty_tile), positions[pos_to_index(x, y + 1)], position_next)
+            });
+
+            positions_next.push(position_next);
+        }
+    }
+
     // create states
     for (pos, (next, init)) in positions
         .iter()
@@ -280,38 +335,51 @@ state count : bv<2>
         // todo!("write a test that checks the positions after a move")
 
         let mut sim = Interpreter::new(&ctx, &sys);
+        sim.init();
 
         let mut state = GameState::default();
 
+        for i in 0..4 {
+            for j in 0..4 {
+                let pos_index = positions[pos_to_index(i, j)];
+                let tile_number = sim.get(pos_index).unwrap().to_u64().unwrap();
 
-        for (x, y) in positions.iter().enumerate(){
-            if let Some(value) = sim.get(*y) {
-                state.set(x as u8 % 4, x as u8 / 4, value);
+                let casted_tile_number = if tile_number == 0 {
+                    None
+                } else {
+                    Some(tile_number as u8)
+                };
+
+                state.set(j, i, casted_tile_number);
             }
         }
 
+        sim.set(mov, &BitVecValue::from_u64(0, 2));
+        sim.step();
 
-        // let mut state = GameState::default();
-        // state.perform_move(Move::TopToBottom);
 
-        // // let mut new_state = GameState::default();
-        // // new_state.set(3,3, Some(12));
-        // // new_state.set(3,2, None);
+        // let mut expected_state = GameState::default();
+        let mut expected_state = state.clone();
+        expected_state.perform_move(Move::LeftToRight);
 
-        // for x in 0..4 {
-        //     for y in 0..4 {
-        //         let pos_index = pos_to_index(y, x);
+        let mut final_state_parsed_from_sim = GameState::default();
 
-        //         let getter = state.get(x,y);
-        //         let casted_getter = match getter {
-        //             Some(num) => num as u64,
-        //             None => 0,
-        //         };
+        for i in 0..4 {
+            for j in 0..4 {
+                let pos_index = positions[pos_to_index(i, j)];
+                let tile_number = sim.get(pos_index).unwrap().to_u64().unwrap();
 
-        //         let exp = ctx.bv_lit(&BitVecValue::from_u64(casted_getter, 4));
+                let casted_tile_number = if tile_number == 0 {
+                    None
+                } else {
+                    Some(tile_number as u8)
+                };
 
-        //     }
-        // }
+                final_state_parsed_from_sim.set(i, j, casted_tile_number);
+            }
+        }
+
+        assert_eq!(expected_state, final_state_parsed_from_sim);
 
     }
 }
