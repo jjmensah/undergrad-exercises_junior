@@ -129,8 +129,8 @@ fn build_puzzle_15(ctx: &mut Context) -> (TransitionSystem, Vec<ExprRef>, ExprRe
     let mut positions_init = vec![];
     let mut is_empty = vec![];
     let init_state = GameState::default();
-    for x in 0..4 {
-        for y in 0..4 {
+    for y in 0..4 {
+        for x in 0..4 {
             let symbol = ctx.bv_symbol(&format!("pos_{x}_{y}"), 4);
             positions.push(symbol);
             let init_value = BitVecValue::from_u64(init_state.get(x, y).unwrap_or(0) as u64, 4);
@@ -142,8 +142,8 @@ fn build_puzzle_15(ctx: &mut Context) -> (TransitionSystem, Vec<ExprRef>, ExprRe
 
     // define the next state function for every position
     let mut positions_next = vec![];
-    for x in 0..4 {
-        for y in 0..4 {
+    for y in 0..4 {
+        for x in 0..4 {
             let position = positions[pos_to_index(x, y)];
 
             // TODO: current we just assign the old tile value, how do we correctly compute the next tile value?
